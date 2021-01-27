@@ -2,6 +2,9 @@
 
 A Flutter plugin to get the client's information
 
+[![Pub](https://img.shields.io/pub/v/client_information.svg)](https://pub.dev/packages/client_information)
+[![License: MIT](https://img.shields.io/badge/license-MIT-purple.svg)](https://opensource.org/licenses/MIT)
+
 ## Features
 
 - Get unique device ID
