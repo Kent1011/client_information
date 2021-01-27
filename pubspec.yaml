@@ -1,0 +1,33 @@
+name: client_information
+description: A plugin to get the client information
+version: 1.0.0
+author: Kent Chien
+homepage: https://github.com/Kent1011/client_information
+
+environment:
+  sdk: '>=2.7.0 <3.0.0'
+  flutter: '>=1.20.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_web_plugins:
+    sdk: flutter
+  http: ^0.12.2
+  ulid: ^1.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: kent.chien.client_information
+        pluginClass: ClientInformationPlugin
+      ios:
+        pluginClass: ClientInformationPlugin
+      web:
+        pluginClass: ClientInformationWeb
+        fileName: client_information_web.dart
