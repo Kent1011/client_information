@@ -12,13 +12,13 @@ A Flutter plugin to get the client's information
 - Get the OS version. (The web project will return the user-agent if the plugin can't identify the version)
 - Get software name.
 
-  > The app project will return the application name.
-  > The web project will return the browser's name. e.g. Chrome, Safari...
+  > The **app** project will return the application name.
+  > The **web** project will return the browser's name. e.g. Chrome, Safari...
 
 - Get software version
 
-  > The app project will return the application version.
-  > The web project will return the browser's version.
+  > The **app** project will return the application version.
+  > The **web** project will return the browser's version.
 
 - Get application type. (only two types: app / web)
 
