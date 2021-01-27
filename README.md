@@ -32,7 +32,7 @@ In the pubspec.yaml of your flutter project, add the following dependency:
 ```yaml
 dependencies:
   ...
-  client_information: ^1.0.0
+  client_information: ^1.0.1
 ```
 
 In your project add the following import:
@@ -79,28 +79,4 @@ print(info.applicationType); // web
 print(info.applicationName); // client_information_example
 print(info.applicationVersion); // unknown_version
 print(info.applicationBuildCode); // 0
-```
-
-`Android`
-
-```dart
-ClientInformation info = await ClientInformation.fetch();
-
-print(info.deviceId); // fa3b44b92411184d
-print(info.osName); // Android
-print(info.osVersion); // 8.1.0
-print(info.softwareName); // client_information_example
-print(info.softwareVersion); // 1.0
-print(info.applicationType); // app
-print(info.applicationName); // client_information_example
-print(info.applicationVersion); // 1.0
-print(info.applicationBuildCode); // 1
-```
-
-`web`
-
-```dart
-ClientInformation info = await ClientInformation.fetch();
-
-
 ```
