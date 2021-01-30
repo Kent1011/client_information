@@ -1,6 +1,6 @@
 name: client_information
 description: A plugin to get the client information
-version: 1.0.1
+version: 1.0.2
 homepage: https://github.com/Kent1011/client_information
 
 environment:
