@@ -20,8 +20,10 @@ public class SwiftClientInformationPlugin: NSObject, FlutterPlugin {
       let osName = "iOS"
       let osVersion = "iOS " + UIDevice.current.systemVersion
       let deviceId = self.getDeviceId(applicationName: applicationName)
+      let deviceName = UIDevice.current.model
 
       info["deviceId"] = deviceId
+      info["deviceName"] = deviceName
       info["osName"] = osName
       info["osVersion"] = osVersion
       info["softwareName"] = applicationName

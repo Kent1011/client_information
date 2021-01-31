@@ -61,6 +61,9 @@ class ClientInformation {
   /// Device ID
   String deviceId;
 
+  /// Device Name
+  String deviceName;
+
   /// Operate system name
   String osName;
 
@@ -92,6 +95,7 @@ class ClientInformation {
 
   ClientInformation({
     this.deviceId,
+    this.deviceName,
     this.osName,
     this.osVersion,
     this.softwareName,
@@ -105,6 +109,7 @@ class ClientInformation {
   Map<String, dynamic> _toMap() {
     return {
       'deviceId': deviceId,
+      'deviceName': deviceName,
       'osName': osName,
       'osVersion': osVersion,
       'softwareName': softwareName,
@@ -121,6 +126,7 @@ class ClientInformation {
 
     return ClientInformation(
       deviceId: map['deviceId'],
+      deviceName: map['deviceName'],
       osName: map['osName'],
       osVersion: map['osVersion'],
       softwareName: map['softwareName'],

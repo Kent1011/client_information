@@ -63,8 +63,11 @@ class ClientInformationWeb {
     var osVersion = os.version;
     var browser = _getBrowser();
     var deviceId = _getDeviceId();
+    var deviceName =
+        '${os.name} ${os.version}/${browser.name} ${browser.version}';
 
     resultInfo["deviceId"] = deviceId;
+    resultInfo["deviceName"] = deviceName;
     resultInfo["osName"] = osName;
     resultInfo["osVersion"] = osVersion;
     resultInfo["softwareName"] = browser.name;
