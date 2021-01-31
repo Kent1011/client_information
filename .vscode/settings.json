@@ -30,5 +30,6 @@
     "ucbrowser",
     "ulid"
   ],
-  "dart.runPubGetOnPubspecChanges": false
+  "dart.runPubGetOnPubspecChanges": false,
+  "dart.flutterSdkPath": "/Users/Kent/fvm/versions/beta"
 }
