@@ -69,6 +69,8 @@ class _MyAppState extends State<MyApp> {
             _clientInfo.softwareName ?? 'unknown_software_name'),
         _generateRowData('softwareVersion',
             _clientInfo.softwareVersion ?? 'unknown_software_version'),
+        _generateRowData('applicationId',
+            _clientInfo.applicationId ?? 'unknown_application_id'),
         _generateRowData('applicationType',
             _clientInfo.applicationType ?? 'unknown_application_type'),
         _generateRowData('applicationName',
