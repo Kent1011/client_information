@@ -21,6 +21,8 @@ class ClientInformation {
     String applicationVersion,
     String applicationBuildCode,
   }) async {
+    // TODO: support mock data by adding "mock" flag
+
     var map = await _channel.invokeMethod('getInformation');
 
     ClientInformation information = (map != null)
