@@ -1,23 +1,32 @@
-// import 'package:flutter/services.dart';
-// import 'package:flutter_test/flutter_test.dart';
-// import 'package:client_information/client_information.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:client_information/client_information.dart';
 
 void main() {
-  // const MethodChannel channel = MethodChannel('client_information');
+  TestWidgetsFlutterBinding.ensureInitialized();
 
-  // TestWidgetsFlutterBinding.ensureInitialized();
+  group('ClientInformation.fetch', () {
+    setUp(() async {
+      ClientInformation.mockOn(
+          deviceId: 'mock_device_id', osName: 'MyCustomOS');
+    });
 
-  // setUp(() {
-  //   channel.setMockMethodCallHandler((MethodCall methodCall) async {
-  //     return '42';
-  //   });
-  // });
+    tearDown(() {
+      ClientInformation.mockOff();
+    });
 
-  // tearDown(() {
-  //   channel.setMockMethodCallHandler(null);
-  // });
+    test('return type will be a ClientInformation', () async {
+      ClientInformation info = await ClientInformation.fetch();
+      expect(info, isA<ClientInformation>());
+    });
 
-  // test('getPlatformVersion', () async {
-  //   expect(await ClientInformation.platformVersion, '42');
-  // });
+    test('And `deviceId` will be "mock_device_id"', () async {
+      ClientInformation info = await ClientInformation.fetch();
+      expect(info.deviceId, 'mock_device_id');
+    });
+
+    test('And `osName` will be "MyCustomOS"', () async {
+      ClientInformation info = await ClientInformation.fetch();
+      expect(info.osName, 'MyCustomOS');
+    });
+  });
 }
