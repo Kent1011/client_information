@@ -6,13 +6,13 @@ This is a plugin that let you get the basic information from your application's 
 [![License: MIT](https://img.shields.io/badge/license-MIT-purple.svg)](https://opensource.org/licenses/MIT)
 
 **iOS screenshot**<br>
-<img src="screens/ios_screenshot.png" width="30%"><br>
+<img src="https://raw.githubusercontent.com/Kent1011/client_information/master/screens/ios_screenshot.png" width="30%"><br>
 
 **Android screenshot**<br>
-<img src="screens/android_screenshot.png" width="30%"><br>
+<img src="https://raw.githubusercontent.com/Kent1011/client_information/master/screens/android_screenshot.png" width="30%"><br>
 
 **Web screenshot**<br>
-<img src="screens/web_screenshot.png" width="60%">
+<img src="https://raw.githubusercontent.com/Kent1011/client_information/master/screens/web_screenshot.png" width="60%">
 
 ## Information Types
 
