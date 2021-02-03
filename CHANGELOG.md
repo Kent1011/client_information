@@ -1,3 +1,7 @@
+## 1.0.3
+
+- Fix some document error.
+
 ## 1.0.2
 
 - New attribute _deviceName_ : Show the device name like "iPhone", "iPad", "Pixel"...
