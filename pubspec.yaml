@@ -1,6 +1,6 @@
 name: client_information
 description: This is a plugin that let you get the basic information from your application's client. It's easy to use and support different platforms(Android, iOS and Web). There 4 different information types ("application information", "software information", "operating system information" and "device information") you can get by using this plugin.
-version: 1.0.2
+version: 1.0.3
 homepage: https://github.com/Kent1011/client_information
 
 environment:
