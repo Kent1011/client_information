@@ -13,6 +13,7 @@ public class SwiftClientInformationPlugin: NSObject, FlutterPlugin {
     var info = [String: String]()
     switch call.method {
     case "getInformation":
+      let applicationId = Bundle.main.bundleIdentifier as? String ?? "unknown_application_id"
       let applicationType = "app"
       let applicationVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "unknown_version"
       let applicationBuildCode = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "0"
@@ -20,12 +21,15 @@ public class SwiftClientInformationPlugin: NSObject, FlutterPlugin {
       let osName = "iOS"
       let osVersion = "iOS " + UIDevice.current.systemVersion
       let deviceId = self.getDeviceId(applicationName: applicationName)
+      let deviceName = UIDevice.current.model
 
       info["deviceId"] = deviceId
+      info["deviceName"] = deviceName
       info["osName"] = osName
       info["osVersion"] = osVersion
       info["softwareName"] = applicationName
       info["softwareVersion"] = applicationVersion
+      info["applicationId"] = applicationId
       info["applicationType"] = applicationType
       info["applicationName"] = applicationName
       info["applicationVersion"] = applicationVersion

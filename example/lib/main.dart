@@ -60,6 +60,8 @@ class _MyAppState extends State<MyApp> {
       children: [
         _generateRowData(
             'deviceId', _clientInfo.deviceId ?? 'unknown_device_id'),
+        _generateRowData(
+            'deviceName', _clientInfo.deviceName ?? 'unknown_device_name'),
         _generateRowData('osName', _clientInfo.osName ?? 'unknown_os_name'),
         _generateRowData(
             'osVersion', _clientInfo.osVersion ?? 'unknown_os_version'),
@@ -67,6 +69,8 @@ class _MyAppState extends State<MyApp> {
             _clientInfo.softwareName ?? 'unknown_software_name'),
         _generateRowData('softwareVersion',
             _clientInfo.softwareVersion ?? 'unknown_software_version'),
+        _generateRowData('applicationId',
+            _clientInfo.applicationId ?? 'unknown_application_id'),
         _generateRowData('applicationType',
             _clientInfo.applicationType ?? 'unknown_application_type'),
         _generateRowData('applicationName',

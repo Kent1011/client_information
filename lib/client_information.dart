@@ -7,6 +7,12 @@ class ClientInformation {
   static const MethodChannel _channel =
       const MethodChannel('client_information');
 
+  /// A flag to identify testing mode
+  static bool _isMockMode = false;
+
+  /// Mock data for test
+  static ClientInformation _mockData;
+
   /// Get basic client information
   ///
   /// Optional parameters can overwrite the information if provided
@@ -16,16 +22,23 @@ class ClientInformation {
     String osVersion,
     String softwareName,
     String softwareVersion,
+    String applicationId,
     String applicationType,
     String applicationName,
     String applicationVersion,
     String applicationBuildCode,
   }) async {
-    var map = await _channel.invokeMethod('getInformation');
+    ClientInformation information;
 
-    ClientInformation information = (map != null)
-        ? ClientInformation._fromMap(Map<String, dynamic>.from(map))
-        : ClientInformation();
+    if (_isMockMode == true) {
+      print('ClientInformation Warning ! You\'re in test mode.');
+      information = _mockData ?? ClientInformation();
+    } else {
+      var map = await _channel.invokeMethod('getInformation');
+      information = map != null
+          ? ClientInformation._fromMap(Map<String, dynamic>.from(map))
+          : ClientInformation();
+    }
 
     if (deviceId?.isNotEmpty ?? false) {
       information.deviceId = deviceId;
@@ -41,6 +54,9 @@ class ClientInformation {
     }
     if (softwareVersion?.isNotEmpty ?? false) {
       information.softwareVersion = softwareVersion;
+    }
+    if (applicationId?.isNotEmpty ?? false) {
+      information.applicationId = applicationId;
     }
     if (applicationType?.isNotEmpty ?? false) {
       information.applicationType = applicationType;
@@ -58,8 +74,65 @@ class ClientInformation {
     return information;
   }
 
+  /// Change to test mode.
+  static void mockOn({
+    String deviceId,
+    String osName,
+    String osVersion,
+    String softwareName,
+    String softwareVersion,
+    String applicationId,
+    String applicationType,
+    String applicationName,
+    String applicationVersion,
+    String applicationBuildCode,
+  }) {
+    _isMockMode = true;
+    _mockData = ClientInformation();
+
+    if (deviceId?.isNotEmpty ?? false) {
+      _mockData.deviceId = deviceId;
+    }
+    if (osName?.isNotEmpty ?? false) {
+      _mockData.osName = osName;
+    }
+    if (osVersion?.isNotEmpty ?? false) {
+      _mockData.osVersion = osVersion;
+    }
+    if (softwareName?.isNotEmpty ?? false) {
+      _mockData.softwareName = softwareName;
+    }
+    if (softwareVersion?.isNotEmpty ?? false) {
+      _mockData.softwareVersion = softwareVersion;
+    }
+    if (applicationId?.isNotEmpty ?? false) {
+      _mockData.applicationId = applicationId;
+    }
+    if (applicationType?.isNotEmpty ?? false) {
+      _mockData.applicationType = applicationType;
+    }
+    if (applicationName?.isNotEmpty ?? false) {
+      _mockData.applicationName = applicationName;
+    }
+    if (applicationVersion?.isNotEmpty ?? false) {
+      _mockData.applicationVersion = applicationVersion;
+    }
+    if (applicationBuildCode?.isNotEmpty ?? false) {
+      _mockData.applicationBuildCode = applicationBuildCode;
+    }
+  }
+
+  /// Stop test mode.
+  static void mockOff() {
+    _isMockMode = false;
+    _mockData = null;
+  }
+
   /// Device ID
   String deviceId;
+
+  /// Device Name
+  String deviceName;
 
   /// Operate system name
   String osName;
@@ -75,6 +148,13 @@ class ClientInformation {
 
   /// Software version (application version or browser version)
   String softwareVersion;
+
+  /// Application ID
+  ///
+  /// Android: package name
+  /// iOS: bundleIdentifier
+  /// Web: application name
+  String applicationId;
 
   /// Application type
   ///
@@ -92,10 +172,12 @@ class ClientInformation {
 
   ClientInformation({
     this.deviceId,
+    this.deviceName,
     this.osName,
     this.osVersion,
     this.softwareName,
     this.softwareVersion,
+    this.applicationId,
     this.applicationType,
     this.applicationName,
     this.applicationVersion,
@@ -105,10 +187,12 @@ class ClientInformation {
   Map<String, dynamic> _toMap() {
     return {
       'deviceId': deviceId,
+      'deviceName': deviceName,
       'osName': osName,
       'osVersion': osVersion,
       'softwareName': softwareName,
       'softwareVersion': softwareVersion,
+      'applicationId': applicationId,
       'applicationType': applicationType,
       'applicationName': applicationName,
       'applicationVersion': applicationVersion,
@@ -121,10 +205,12 @@ class ClientInformation {
 
     return ClientInformation(
       deviceId: map['deviceId'],
+      deviceName: map['deviceName'],
       osName: map['osName'],
       osVersion: map['osVersion'],
       softwareName: map['softwareName'],
       softwareVersion: map['softwareVersion'],
+      applicationId: map['applicationId'],
       applicationType: map['applicationType'],
       applicationName: map['applicationName'],
       applicationVersion: map['applicationVersion'],

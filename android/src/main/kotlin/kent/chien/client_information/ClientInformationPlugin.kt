@@ -39,6 +39,7 @@ class ClientInformationPlugin: FlutterPlugin, MethodCallHandler {
       val manager: PackageManager = context.packageManager;
       val info: PackageInfo?;
 
+      var applicationId = "unknown_application_id";
       val applicationType = "app";
       var applicationVersion = "unknown_version";
       var applicationBuildCode: Long = 0;
@@ -47,8 +48,12 @@ class ClientInformationPlugin: FlutterPlugin, MethodCallHandler {
       val osName = "Android";
       val osVersion: String = Build.VERSION.RELEASE;
 
+      var deviceId = getDeviceId();
+      var deviceName = Build.MODEL;
+
       try {
           info = manager.getPackageInfo(context.packageName, 0);
+          applicationId = context.getPackageName() ?: "unknown_application_id";
           applicationVersion = info?.versionName ?: "unknown_version";
           applicationBuildCode = if (info == null) {
               0;
@@ -62,11 +67,13 @@ class ClientInformationPlugin: FlutterPlugin, MethodCallHandler {
 
       val resultInfo = HashMap<String, String>();
 
-      resultInfo["deviceId"] = getDeviceId();
+      resultInfo["deviceId"] = deviceId;
+      resultInfo["deviceName"] = deviceName;
       resultInfo["osName"] = osName;
       resultInfo["osVersion"] = osVersion;
       resultInfo["softwareName"] = applicationName;
       resultInfo["softwareVersion"] = applicationVersion;
+      resultInfo["applicationId"] = applicationId;
       resultInfo["applicationType"] = applicationType;
       resultInfo["applicationName"] = applicationName;
       resultInfo["applicationVersion"] = applicationVersion;

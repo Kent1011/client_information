@@ -5,3 +5,7 @@
 .pub/
 
 build/
+
+.vscode/settings.json
+.fvm/*
+example/.fvm/*
