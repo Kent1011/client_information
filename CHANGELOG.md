@@ -1,6 +1,7 @@
 ## 1.0.2
 
 - New attribute _deviceName_ : Show the device name like "iPhone", "iPad", "Pixel"...
+- New attribute _applicationId_ : Show you the application ID (\*Not support for web project)
 - Support test mode.
 
   ```dart
