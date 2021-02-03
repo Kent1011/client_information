@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 class ClientInformation {
@@ -75,6 +76,7 @@ class ClientInformation {
   }
 
   /// Change to test mode.
+  @visibleForTesting
   static void mockOn({
     String deviceId,
     String osName,
@@ -123,6 +125,7 @@ class ClientInformation {
   }
 
   /// Stop test mode.
+  @visibleForTesting
   static void mockOff() {
     _isMockMode = false;
     _mockData = null;
