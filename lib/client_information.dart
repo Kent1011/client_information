@@ -153,7 +153,7 @@ class ClientInformation {
   ///
   /// Android: package name
   /// iOS: bundleIdentifier
-  /// Web: Not support now (TODO: find a solution for web application id)
+  /// Web: application name
   String applicationId;
 
   /// Application type

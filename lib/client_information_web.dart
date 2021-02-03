@@ -72,6 +72,7 @@ class ClientInformationWeb {
     resultInfo["osVersion"] = osVersion;
     resultInfo["softwareName"] = browser.name;
     resultInfo["softwareVersion"] = browser.version;
+    resultInfo["applicationId"] = applicationName;
     resultInfo["applicationType"] = applicationType;
     resultInfo["applicationName"] = applicationName;
     resultInfo["applicationVersion"] = applicationVersion;
