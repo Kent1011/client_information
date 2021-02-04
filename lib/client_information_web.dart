@@ -26,7 +26,6 @@ class ClientInformationWeb {
     switch (call.method) {
       case 'getInformation':
         return getInformation();
-        break;
       default:
         throw PlatformException(
           code: 'Unimplemented',
@@ -40,22 +39,25 @@ class ClientInformationWeb {
     Map<String, String> resultInfo = Map<String, String>();
 
     var applicationType = 'web';
-    var applicationVersion = "unknown_version";
+    var applicationVersion = "unknown_application_version";
     var applicationBuildCode = 0;
-    var applicationName = 'unknown_name';
+    var applicationName = 'unknown_application_name';
 
-    final versionFilePath =
-        '${Uri.parse(html.window.document.baseUri).removeFragment()}version.json';
-    var appInfo = await get(versionFilePath);
+    var baseUri = html.window.document.baseUri;
+    if (baseUri != null) {
+      final versionFilePath =
+          '${Uri.parse(baseUri).removeFragment()}version.json';
+      final appInfo = await get(Uri.parse(versionFilePath));
 
-    if (appInfo != null && appInfo.statusCode == 200) {
-      var _appMapData = json.decode(appInfo.body);
-      if (_appMapData['app_name'] != null)
-        applicationName = _appMapData['app_name'];
-      if (_appMapData['version'] != null)
-        applicationVersion = _appMapData['version'];
-      if (_appMapData['build_number'] != null)
-        applicationBuildCode = _appMapData['build_number'];
+      if (appInfo.statusCode == 200) {
+        var _appMapData = json.decode(appInfo.body);
+        if (_appMapData['app_name'] != null)
+          applicationName = _appMapData['app_name'];
+        if (_appMapData['version'] != null)
+          applicationVersion = _appMapData['version'];
+        if (_appMapData['build_number'] != null)
+          applicationBuildCode = _appMapData['build_number'];
+      }
     }
 
     var os = _getOS();
@@ -97,18 +99,18 @@ class ClientInformationWeb {
 
   String _initialDeviceIdKey() {
     var deviceIdKey = _getDeviceIdKey();
-    if (null == deviceIdKey) _setDeviceIdKey();
-    deviceIdKey = _getDeviceIdKey();
+    if (null == deviceIdKey) {
+      deviceIdKey = DateTime.now().millisecondsSinceEpoch.toString();
+      _setDeviceIdKey(deviceIdKey);
+    }
     return deviceIdKey;
   }
 
-  void _setDeviceIdKey() {
-    var timestamp = DateTime.now().millisecondsSinceEpoch;
-    _setCookie('${ClientInformationWeb._deviceIdKeyPlaceHolder}_$timestamp',
-        timestamp.toString());
+  void _setDeviceIdKey(String value) {
+    _setCookie('${ClientInformationWeb._deviceIdKeyPlaceHolder}_$value', value);
   }
 
-  String _getDeviceIdKey() =>
+  String? _getDeviceIdKey() =>
       _getCookieValue(ClientInformationWeb._deviceIdKeyPlaceHolder,
           similar: true);
 
@@ -116,21 +118,20 @@ class ClientInformationWeb {
     html.window.document.cookie = '$key=$value';
   }
 
-  String _getCookieValue(String key, {bool similar = false}) {
-    String cookieStr = html.window.document.cookie;
+  String? _getCookieValue(String key, {bool similar = false}) {
+    String? cookieStr = html.window.document.cookie;
     if (cookieStr == null || cookieStr == '') return null;
 
     return cookieStr
         .split('; ')
-        .firstWhere((row) => row.startsWith(similar ? key : '$key='),
-            orElse: () => null)
-        ?.split('=')
-        ?.elementAt(1);
+        .firstWhere((row) => row.startsWith(similar ? key : '$key='))
+        .split('=')
+        .elementAt(1);
   }
 
   _Software _getOS() {
     var userAgent = html.window.navigator.userAgent,
-        platform = html.window.navigator.platform,
+        platform = html.window.navigator.platform ?? 'unknown_platform',
         macosPlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K'],
         windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'],
         iosPlatforms = ['iPhone', 'iPad', 'iPod'],
@@ -191,7 +192,7 @@ class ClientInformationWeb {
   _Software _getBrowser() {
     var userAgent = html.window.navigator.userAgent;
     var browser = "unknown_browser";
-    var browserVersion = '0.0.0';
+    String? browserVersion = '0.0.0';
 
     browser = RegExp(r'ucbrowser', caseSensitive: false).hasMatch(userAgent)
         ? 'UCBrowser'
@@ -302,7 +303,7 @@ class ClientInformationWeb {
         var ieVersion = _softwareVersion(
             userAgent, RegExp(r'(MSIE) ([\d\.]+)', caseSensitive: false));
         browserVersion = tridentVersion != null
-            ? (double.tryParse(tridentVersion) + 4.0).toString()
+            ? (double.parse(tridentVersion) + 4.0).toString()
             : (ieVersion != null ? ieVersion : '0.0.0');
         break;
       case 'Silk':
@@ -333,10 +334,10 @@ class ClientInformationWeb {
         break;
     }
 
-    return _Software(browser ?? 'unknown_browser', browserVersion ?? '0.0.0');
+    return _Software(browser, browserVersion ?? '0.0.0');
   }
 
-  String _softwareVersion(String userAgent, RegExp regex) {
+  String? _softwareVersion(String userAgent, RegExp regex) {
     return regex.hasMatch(userAgent)
         ? regex.allMatches(userAgent).elementAt(0).group(2)
         : null;
