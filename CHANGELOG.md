@@ -1,3 +1,8 @@
+## 1.1.0
+
+- change dependency 'ulid' -> 'uuid' for null-safety support
+- null-safety support
+
 ## 1.0.4
 
 - Update document.
