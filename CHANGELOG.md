@@ -1,7 +1,6 @@
-## 1.1.0-nullsafety.0
+## 2.0.0-nullsafety.0
 
-- change dependency 'ulid' -> 'uuid' for null-safety support
-- null-safety support
+- Migrate package to null-safety, increase minimum SDK version to 2.12, replace dependency 'ulid' -> 'uuid'.
 
 ## 1.0.4
 
