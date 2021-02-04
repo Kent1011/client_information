@@ -1,4 +1,4 @@
-## 1.1.0
+## 1.1.0-nullsafety.0
 
 - change dependency 'ulid' -> 'uuid' for null-safety support
 - null-safety support
