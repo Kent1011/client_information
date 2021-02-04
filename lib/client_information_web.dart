@@ -6,7 +6,7 @@ import 'dart:html' as html show window;
 import 'package:flutter/services.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:http/http.dart';
-import 'package:ulid/ulid.dart';
+import 'package:uuid/uuid.dart';
 
 class ClientInformationWeb {
   static const _deviceIdKeyPlaceHolder = '_ci_dik';
@@ -89,7 +89,7 @@ class ClientInformationWeb {
     if (deviceId != null) {
       return deviceId;
     } else {
-      deviceId = Ulid().toString();
+      deviceId = Uuid().v4();
       _setCookie(key, deviceId);
       return deviceId;
     }
