@@ -70,7 +70,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "1.0.4"
+    version: "1.1.0-nullsafety.0"
   clock:
     dependency: transitive
     description:
@@ -100,12 +100,12 @@ packages:
     source: hosted
     version: "0.14.2"
   crypto:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
       name: crypto
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.5"
+    version: "3.0.0-nullsafety.0"
   cupertino_icons:
     dependency: "direct main"
     description:
@@ -165,14 +165,14 @@ packages:
       name: http
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.12.2"
+    version: "0.13.0-nullsafety.0"
   http_parser:
     dependency: transitive
     description:
       name: http_parser
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.1.4"
+    version: "4.0.0-nullsafety"
   integration_test:
     dependency: "direct dev"
     description: flutter
@@ -365,13 +365,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.3.0-nullsafety.5"
-  ulid:
+  uuid:
     dependency: transitive
     description:
-      name: ulid
+      name: uuid
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.0"
+    version: "3.0.0-nullsafety.0"
   vector_math:
     dependency: transitive
     description:
