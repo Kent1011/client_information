@@ -1,3 +1,7 @@
+## 2.0.0-nullsafety.1
+
+- upgrade dependency `http` 0.13.0-nullsafety.0 -> 0.13.0
+
 ## 2.0.0-nullsafety.0
 
 - Migrate package to null-safety, increase minimum SDK version to 2.12, replace dependency 'ulid' -> 'uuid'.
