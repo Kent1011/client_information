@@ -13,7 +13,7 @@ dependencies:
   flutter_web_plugins:
     sdk: flutter
   http: ^0.12.2
-  ulid: ^1.1.0
+  uuid: ^2.2.2
 
 dev_dependencies:
   flutter_test:
