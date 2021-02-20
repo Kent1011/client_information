@@ -1,6 +1,6 @@
 name: client_information
 description: This is a plugin that let you get the basic information from your application's client. It's easy to use and support different platforms(Android, iOS and Web).
-version: 1.0.4
+version: 1.1.0
 homepage: https://github.com/Kent1011/client_information
 
 environment:
@@ -12,7 +12,6 @@ dependencies:
     sdk: flutter
   flutter_web_plugins:
     sdk: flutter
-  http: ^0.12.2
   uuid: ^2.2.2
 
 dev_dependencies:

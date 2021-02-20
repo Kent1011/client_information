@@ -2,10 +2,10 @@ import 'dart:async';
 import 'dart:convert';
 // ignore: avoid_web_libraries_in_flutter
 import 'dart:html' as html show window;
+import 'dart:html';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
-import 'package:http/http.dart';
 import 'package:uuid/uuid.dart';
 
 class ClientInformationWeb {
@@ -44,12 +44,8 @@ class ClientInformationWeb {
     var applicationBuildCode = 0;
     var applicationName = 'unknown_name';
 
-    final versionFilePath =
-        '${Uri.parse(html.window.document.baseUri).removeFragment()}version.json';
-    var appInfo = await get(versionFilePath);
-
-    if (appInfo != null && appInfo.statusCode == 200) {
-      var _appMapData = json.decode(appInfo.body);
+    var _appMapData = await _getVersionJsonData();
+    if (_appMapData != null && _appMapData.isNotEmpty) {
       if (_appMapData['app_name'] != null) {
         applicationName = _appMapData['app_name'];
       }
@@ -82,6 +78,22 @@ class ClientInformationWeb {
     resultInfo['applicationBuildCode'] = applicationBuildCode.toString();
 
     return Future.value(resultInfo);
+  }
+
+  Future<Map<String, dynamic>> _getVersionJsonData() async {
+    final versionFilePath =
+        '${Uri.parse(html.window.document.baseUri).removeFragment()}version.json';
+    try {
+      final jsonString = await HttpRequest.getString(versionFilePath);
+
+      if (jsonString?.isEmpty ?? true) {
+        return null;
+      } else {
+        return json.decode(jsonString);
+      }
+    } catch (error) {
+      return null;
+    }
   }
 
   String _getDeviceId() {
