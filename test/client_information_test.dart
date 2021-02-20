@@ -15,17 +15,17 @@ void main() {
     });
 
     test('return type will be a ClientInformation', () async {
-      ClientInformation info = await ClientInformation.fetch();
+      var info = await ClientInformation.fetch();
       expect(info, isA<ClientInformation>());
     });
 
     test('And `deviceId` will be "mock_device_id"', () async {
-      ClientInformation info = await ClientInformation.fetch();
+      var info = await ClientInformation.fetch();
       expect(info.deviceId, 'mock_device_id');
     });
 
     test('And `osName` will be "MyCustomOS"', () async {
-      ClientInformation info = await ClientInformation.fetch();
+      var info = await ClientInformation.fetch();
       expect(info.osName, 'MyCustomOS');
     });
   });

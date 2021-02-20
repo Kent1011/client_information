@@ -5,8 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 class ClientInformation {
-  static const MethodChannel _channel =
-      const MethodChannel('client_information');
+  static const MethodChannel _channel = MethodChannel('client_information');
 
   /// A flag to identify testing mode
   static bool _isMockMode = false;

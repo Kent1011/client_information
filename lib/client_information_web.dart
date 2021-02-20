@@ -12,7 +12,7 @@ class ClientInformationWeb {
   static const _deviceIdKeyPlaceHolder = '_ci_dik';
 
   static void registerWith(Registrar registrar) {
-    final MethodChannel channel = MethodChannel(
+    final channel = MethodChannel(
       'client_information',
       const StandardMethodCodec(),
       registrar,
@@ -37,10 +37,10 @@ class ClientInformationWeb {
   }
 
   Future<Map<String, String>> getInformation() async {
-    Map<String, String> resultInfo = Map<String, String>();
+    var resultInfo = <String, String>{};
 
     var applicationType = 'web';
-    var applicationVersion = "unknown_version";
+    var applicationVersion = 'unknown_version';
     var applicationBuildCode = 0;
     var applicationName = 'unknown_name';
 
@@ -50,12 +50,15 @@ class ClientInformationWeb {
 
     if (appInfo != null && appInfo.statusCode == 200) {
       var _appMapData = json.decode(appInfo.body);
-      if (_appMapData['app_name'] != null)
+      if (_appMapData['app_name'] != null) {
         applicationName = _appMapData['app_name'];
-      if (_appMapData['version'] != null)
+      }
+      if (_appMapData['version'] != null) {
         applicationVersion = _appMapData['version'];
-      if (_appMapData['build_number'] != null)
+      }
+      if (_appMapData['build_number'] != null) {
         applicationBuildCode = _appMapData['build_number'];
+      }
     }
 
     var os = _getOS();
@@ -66,17 +69,17 @@ class ClientInformationWeb {
     var deviceName =
         '${os.name} ${os.version}/${browser.name} ${browser.version}';
 
-    resultInfo["deviceId"] = deviceId;
-    resultInfo["deviceName"] = deviceName;
-    resultInfo["osName"] = osName;
-    resultInfo["osVersion"] = osVersion;
-    resultInfo["softwareName"] = browser.name;
-    resultInfo["softwareVersion"] = browser.version;
-    resultInfo["applicationId"] = applicationName;
-    resultInfo["applicationType"] = applicationType;
-    resultInfo["applicationName"] = applicationName;
-    resultInfo["applicationVersion"] = applicationVersion;
-    resultInfo["applicationBuildCode"] = applicationBuildCode.toString();
+    resultInfo['deviceId'] = deviceId;
+    resultInfo['deviceName'] = deviceName;
+    resultInfo['osName'] = osName;
+    resultInfo['osVersion'] = osVersion;
+    resultInfo['softwareName'] = browser.name;
+    resultInfo['softwareVersion'] = browser.version;
+    resultInfo['applicationId'] = applicationName;
+    resultInfo['applicationType'] = applicationType;
+    resultInfo['applicationName'] = applicationName;
+    resultInfo['applicationVersion'] = applicationVersion;
+    resultInfo['applicationBuildCode'] = applicationBuildCode.toString();
 
     return Future.value(resultInfo);
   }
@@ -117,7 +120,7 @@ class ClientInformationWeb {
   }
 
   String _getCookieValue(String key, {bool similar = false}) {
-    String cookieStr = html.window.document.cookie;
+    var cookieStr = html.window.document.cookie;
     if (cookieStr == null || cookieStr == '') return null;
 
     return cookieStr
@@ -137,11 +140,11 @@ class ClientInformationWeb {
         osName,
         osVersion;
 
-    if (macosPlatforms.indexOf(platform) != -1) {
+    if (macosPlatforms.contains(platform)) {
       osName = 'Mac OS';
-    } else if (iosPlatforms.indexOf(platform) != -1) {
+    } else if (iosPlatforms.contains(platform)) {
       osName = 'iOS';
-    } else if (windowsPlatforms.indexOf(platform) != -1) {
+    } else if (windowsPlatforms.contains(platform)) {
       osName = 'Windows';
     } else if (RegExp(r'Android').hasMatch(userAgent)) {
       osName = 'Android';
@@ -190,7 +193,7 @@ class ClientInformationWeb {
 
   _Software _getBrowser() {
     var userAgent = html.window.navigator.userAgent;
-    var browser = "unknown_browser";
+    var browser = 'unknown_browser';
     var browserVersion = '0.0.0';
 
     browser = RegExp(r'ucbrowser', caseSensitive: false).hasMatch(userAgent)
@@ -303,7 +306,7 @@ class ClientInformationWeb {
             userAgent, RegExp(r'(MSIE) ([\d\.]+)', caseSensitive: false));
         browserVersion = tridentVersion != null
             ? (double.tryParse(tridentVersion) + 4.0).toString()
-            : (ieVersion != null ? ieVersion : '0.0.0');
+            : (ieVersion ?? '0.0.0');
         break;
       case 'Silk':
         browserVersion = _softwareVersion(
