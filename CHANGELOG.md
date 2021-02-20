@@ -1,3 +1,9 @@
+## 1.1.0
+
+- Remove package `http` dependency.
+- Replace dependency 'ulid' -> 'uuid'.
+- Use `pedantic`.
+
 ## 1.0.4
 
 - Update document.
