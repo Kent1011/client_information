@@ -15,7 +15,7 @@ class ClientInformationWeb {
     final channel = MethodChannel(
       'client_information',
       const StandardMethodCodec(),
-      registrar,
+      registrar.messenger,
     );
 
     final pluginInstance = ClientInformationWeb();
