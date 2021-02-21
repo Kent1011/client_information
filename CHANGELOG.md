@@ -1,3 +1,7 @@
+## 1.1.0+1
+
+- Fix: static analysis (`pana`) using stable version
+
 ## 1.1.0
 
 - Remove package `http` dependency.
