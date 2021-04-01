@@ -118,7 +118,7 @@ OS information will show you OS's name and version. Notice: web project may not 
 
 ### Device Information
 
-Device information will show you device ID and device name. Notice: web project doesn't support real **deviceId**, therefore it will use the package [Ulid](https://pub.dev/packages/ulid) to generate a unique string and save to the browser's cookie.
+Device information will show you device ID and device name. Notice: web project doesn't support real **deviceId**, therefore it will use the package [uuid](https://pub.dev/packages/uuid) to generate a unique string and save to the browser's cookie.
 
 <table>
   <tr>
@@ -148,7 +148,7 @@ In the pubspec.yaml of your flutter project, add the following dependency:
 ```yaml
 dependencies:
   ...
-  client_information: ^1.1.0+1
+  client_information: ^2.0.0
 ```
 
 In your project add the following import:

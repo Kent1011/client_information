@@ -1,3 +1,7 @@
+## 2.0.0
+
+- null-safety support
+
 ## 1.1.0+1
 
 - Fix: static analysis (`pana`) using stable version
@@ -7,6 +11,10 @@
 - Remove package `http` dependency.
 - Replace dependency 'ulid' -> 'uuid'.
 - Use `pedantic`.
+
+## 2.0.0-nullsafety.0
+
+- Migrate package to null-safety, increase minimum SDK version to 2.12, replace dependency 'ulid' -> 'uuid'.
 
 ## 1.0.4
 
