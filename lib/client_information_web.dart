@@ -15,7 +15,7 @@ class ClientInformationWeb {
     final channel = MethodChannel(
       'client_information',
       const StandardMethodCodec(),
-      registrar.messenger,
+      registrar,
     );
 
     final pluginInstance = ClientInformationWeb();
@@ -26,7 +26,6 @@ class ClientInformationWeb {
     switch (call.method) {
       case 'getInformation':
         return getInformation();
-        break;
       default:
         throw PlatformException(
           code: 'Unimplemented',
@@ -45,7 +44,7 @@ class ClientInformationWeb {
     var applicationName = 'unknown_name';
 
     var _appMapData = await _getVersionJsonData();
-    if (_appMapData != null && _appMapData.isNotEmpty) {
+    if (_appMapData.isNotEmpty) {
       if (_appMapData['app_name'] != null) {
         applicationName = _appMapData['app_name'];
       }
@@ -81,18 +80,21 @@ class ClientInformationWeb {
   }
 
   Future<Map<String, dynamic>> _getVersionJsonData() async {
-    final versionFilePath =
-        '${Uri.parse(html.window.document.baseUri).removeFragment()}version.json';
+    var baseUrl = html.window.document.baseUri ?? '';
+    if (baseUrl.isEmpty) return {};
+
     try {
+      final versionFilePath =
+          '${Uri.parse(baseUrl).removeFragment()}version.json';
       final jsonString = await HttpRequest.getString(versionFilePath);
 
-      if (jsonString?.isEmpty ?? true) {
-        return null;
+      if (jsonString.isEmpty) {
+        return {};
       } else {
         return json.decode(jsonString);
       }
     } catch (error) {
-      return null;
+      return {};
     }
   }
 
@@ -112,9 +114,9 @@ class ClientInformationWeb {
 
   String _initialDeviceIdKey() {
     var deviceIdKey = _getDeviceIdKey();
-    if (null == deviceIdKey) _setDeviceIdKey();
+    if (deviceIdKey == null) _setDeviceIdKey();
     deviceIdKey = _getDeviceIdKey();
-    return deviceIdKey;
+    return deviceIdKey!;
   }
 
   void _setDeviceIdKey() {
@@ -123,7 +125,7 @@ class ClientInformationWeb {
         timestamp.toString());
   }
 
-  String _getDeviceIdKey() =>
+  String? _getDeviceIdKey() =>
       _getCookieValue(ClientInformationWeb._deviceIdKeyPlaceHolder,
           similar: true);
 
@@ -131,16 +133,15 @@ class ClientInformationWeb {
     html.window.document.cookie = '$key=$value';
   }
 
-  String _getCookieValue(String key, {bool similar = false}) {
+  String? _getCookieValue(String key, {bool similar = false}) {
     var cookieStr = html.window.document.cookie;
     if (cookieStr == null || cookieStr == '') return null;
 
     return cookieStr
         .split('; ')
-        .firstWhere((row) => row.startsWith(similar ? key : '$key='),
-            orElse: () => null)
-        ?.split('=')
-        ?.elementAt(1);
+        .firstWhere((row) => row.startsWith(similar ? key : '$key='))
+        .split('=')
+        .elementAt(1);
   }
 
   _Software _getOS() {
@@ -206,7 +207,7 @@ class ClientInformationWeb {
   _Software _getBrowser() {
     var userAgent = html.window.navigator.userAgent;
     var browser = 'unknown_browser';
-    var browserVersion = '0.0.0';
+    String? browserVersion = '0.0.0';
 
     browser = RegExp(r'ucbrowser', caseSensitive: false).hasMatch(userAgent)
         ? 'UCBrowser'
@@ -317,7 +318,7 @@ class ClientInformationWeb {
         var ieVersion = _softwareVersion(
             userAgent, RegExp(r'(MSIE) ([\d\.]+)', caseSensitive: false));
         browserVersion = tridentVersion != null
-            ? (double.tryParse(tridentVersion) + 4.0).toString()
+            ? (double.parse(tridentVersion) + 4.0).toString()
             : (ieVersion ?? '0.0.0');
         break;
       case 'Silk':
@@ -348,10 +349,10 @@ class ClientInformationWeb {
         break;
     }
 
-    return _Software(browser ?? 'unknown_browser', browserVersion ?? '0.0.0');
+    return _Software(browser, browserVersion ?? '0.0.0');
   }
 
-  String _softwareVersion(String userAgent, RegExp regex) {
+  String? _softwareVersion(String userAgent, RegExp regex) {
     return regex.hasMatch(userAgent)
         ? regex.allMatches(userAgent).elementAt(0).group(2)
         : null;

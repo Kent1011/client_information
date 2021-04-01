@@ -11,28 +11,28 @@ class ClientInformation {
   static bool _isMockMode = false;
 
   /// Mock data for test
-  static ClientInformation _mockData;
+  static late final ClientInformation _mockData;
 
   /// Get basic client information
   ///
   /// Optional parameters can overwrite the information if provided
   static Future<ClientInformation> fetch({
-    String deviceId,
-    String osName,
-    String osVersion,
-    String softwareName,
-    String softwareVersion,
-    String applicationId,
-    String applicationType,
-    String applicationName,
-    String applicationVersion,
-    String applicationBuildCode,
+    String? deviceId,
+    String? osName,
+    String? osVersion,
+    String? softwareName,
+    String? softwareVersion,
+    String? applicationId,
+    String? applicationType,
+    String? applicationName,
+    String? applicationVersion,
+    String? applicationBuildCode,
   }) async {
     ClientInformation information;
 
     if (_isMockMode == true) {
       print('ClientInformation Warning ! You\'re in test mode.');
-      information = _mockData ?? ClientInformation();
+      information = _mockData;
     } else {
       var map = await _channel.invokeMethod('getInformation');
       information = map != null
@@ -41,34 +41,34 @@ class ClientInformation {
     }
 
     if (deviceId?.isNotEmpty ?? false) {
-      information.deviceId = deviceId;
+      information.deviceId = deviceId!;
     }
     if (osName?.isNotEmpty ?? false) {
-      information.osName = osName;
+      information.osName = osName!;
     }
     if (osVersion?.isNotEmpty ?? false) {
-      information.osVersion = osVersion;
+      information.osVersion = osVersion!;
     }
     if (softwareName?.isNotEmpty ?? false) {
-      information.softwareName = softwareName;
+      information.softwareName = softwareName!;
     }
     if (softwareVersion?.isNotEmpty ?? false) {
-      information.softwareVersion = softwareVersion;
+      information.softwareVersion = softwareVersion!;
     }
     if (applicationId?.isNotEmpty ?? false) {
-      information.applicationId = applicationId;
+      information.applicationId = applicationId!;
     }
     if (applicationType?.isNotEmpty ?? false) {
-      information.applicationType = applicationType;
+      information.applicationType = applicationType!;
     }
     if (applicationName?.isNotEmpty ?? false) {
-      information.applicationName = applicationName;
+      information.applicationName = applicationName!;
     }
     if (applicationVersion?.isNotEmpty ?? false) {
-      information.applicationVersion = applicationVersion;
+      information.applicationVersion = applicationVersion!;
     }
     if (applicationBuildCode?.isNotEmpty ?? false) {
-      information.applicationBuildCode = applicationBuildCode;
+      information.applicationBuildCode = applicationBuildCode!;
     }
 
     return information;
@@ -77,49 +77,49 @@ class ClientInformation {
   /// Change to test mode.
   @visibleForTesting
   static void mockOn({
-    String deviceId,
-    String osName,
-    String osVersion,
-    String softwareName,
-    String softwareVersion,
-    String applicationId,
-    String applicationType,
-    String applicationName,
-    String applicationVersion,
-    String applicationBuildCode,
+    String? deviceId,
+    String? osName,
+    String? osVersion,
+    String? softwareName,
+    String? softwareVersion,
+    String? applicationId,
+    String? applicationType,
+    String? applicationName,
+    String? applicationVersion,
+    String? applicationBuildCode,
   }) {
     _isMockMode = true;
     _mockData = ClientInformation();
 
     if (deviceId?.isNotEmpty ?? false) {
-      _mockData.deviceId = deviceId;
+      _mockData.deviceId = deviceId!;
     }
     if (osName?.isNotEmpty ?? false) {
-      _mockData.osName = osName;
+      _mockData.osName = osName!;
     }
     if (osVersion?.isNotEmpty ?? false) {
-      _mockData.osVersion = osVersion;
+      _mockData.osVersion = osVersion!;
     }
     if (softwareName?.isNotEmpty ?? false) {
-      _mockData.softwareName = softwareName;
+      _mockData.softwareName = softwareName!;
     }
     if (softwareVersion?.isNotEmpty ?? false) {
-      _mockData.softwareVersion = softwareVersion;
+      _mockData.softwareVersion = softwareVersion!;
     }
     if (applicationId?.isNotEmpty ?? false) {
-      _mockData.applicationId = applicationId;
+      _mockData.applicationId = applicationId!;
     }
     if (applicationType?.isNotEmpty ?? false) {
-      _mockData.applicationType = applicationType;
+      _mockData.applicationType = applicationType!;
     }
     if (applicationName?.isNotEmpty ?? false) {
-      _mockData.applicationName = applicationName;
+      _mockData.applicationName = applicationName!;
     }
     if (applicationVersion?.isNotEmpty ?? false) {
-      _mockData.applicationVersion = applicationVersion;
+      _mockData.applicationVersion = applicationVersion!;
     }
     if (applicationBuildCode?.isNotEmpty ?? false) {
-      _mockData.applicationBuildCode = applicationBuildCode;
+      _mockData.applicationBuildCode = applicationBuildCode!;
     }
   }
 
@@ -127,7 +127,6 @@ class ClientInformation {
   @visibleForTesting
   static void mockOff() {
     _isMockMode = false;
-    _mockData = null;
   }
 
   /// Device ID
@@ -173,18 +172,30 @@ class ClientInformation {
   String applicationBuildCode;
 
   ClientInformation({
-    this.deviceId,
-    this.deviceName,
-    this.osName,
-    this.osVersion,
-    this.softwareName,
-    this.softwareVersion,
-    this.applicationId,
-    this.applicationType,
-    this.applicationName,
-    this.applicationVersion,
-    this.applicationBuildCode,
-  });
+    String? deviceId,
+    String? deviceName,
+    String? osName,
+    String? osVersion,
+    String? softwareName,
+    String? softwareVersion,
+    String? applicationId,
+    String? applicationType,
+    String? applicationName,
+    String? applicationVersion,
+    String? applicationBuildCode,
+  })  : deviceId = deviceId ?? 'unknown_device_id',
+        deviceName = deviceName ?? 'unknown_device_name',
+        osName = osName ?? 'unknown_os_name',
+        osVersion = osVersion ?? 'unknown_os_version',
+        softwareName = softwareName ?? 'unknown_software_name',
+        softwareVersion = softwareVersion ?? 'unknown_software_version',
+        applicationId = applicationId ?? 'unknown_application_id',
+        applicationType = applicationType ?? 'unknown_application_type',
+        applicationName = applicationName ?? 'unknown_application_name',
+        applicationVersion =
+            applicationVersion ?? 'unknown_application_version',
+        applicationBuildCode =
+            applicationBuildCode ?? 'unknown_application_build_code';
 
   Map<String, dynamic> _toMap() {
     return {
@@ -202,8 +213,8 @@ class ClientInformation {
     };
   }
 
-  factory ClientInformation._fromMap(Map<String, dynamic> map) {
-    if (map == null) return null;
+  factory ClientInformation._fromMap(Map<String, dynamic>? map) {
+    if (map == null) return ClientInformation();
 
     return ClientInformation(
       deviceId: map['deviceId'],
