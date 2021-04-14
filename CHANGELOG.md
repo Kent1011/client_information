@@ -1,3 +1,7 @@
+## 2.0.1
+
+- fix: Web exception when get deviceID ([#1](https://github.com/Kent1011/client_information/issues/1))
+
 ## 2.0.0
 
 - null-safety support
