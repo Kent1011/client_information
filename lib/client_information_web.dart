@@ -75,7 +75,6 @@ class ClientInformationWeb {
     resultInfo['applicationName'] = applicationName;
     resultInfo['applicationVersion'] = applicationVersion;
     resultInfo['applicationBuildCode'] = applicationBuildCode.toString();
-
     return Future.value(resultInfo);
   }
 
@@ -100,7 +99,7 @@ class ClientInformationWeb {
 
   String _getDeviceId() {
     var deviceIdKey = _initialDeviceIdKey();
-    var key = '_$deviceIdKey';
+    var key = '${ClientInformationWeb._deviceIdKeyPlaceHolder}_$deviceIdKey';
     var deviceId = _getCookieValue(key);
 
     if (deviceId != null) {
@@ -152,7 +151,6 @@ class ClientInformationWeb {
         iosPlatforms = ['iPhone', 'iPad', 'iPod'],
         osName,
         osVersion;
-
     if (macosPlatforms.contains(platform)) {
       osName = 'Mac OS';
     } else if (iosPlatforms.contains(platform)) {
