@@ -136,11 +136,11 @@ class ClientInformationWeb {
     var cookieStr = html.window.document.cookie;
     if (cookieStr == null || cookieStr == '') return null;
 
-    return cookieStr
+    var el = cookieStr
         .split('; ')
-        .firstWhere((row) => row.startsWith(similar ? key : '$key='))
-        .split('=')
-        .elementAt(1);
+        .firstWhere((row) => row.startsWith(similar ? key : '$key='), orElse: () => '')
+        .split('=');
+    return el.length > 1 ? el.elementAt(1) : null;
   }
 
   _Software _getOS() {
