@@ -40,7 +40,7 @@ class ClientInformationWeb {
 
     var applicationType = 'web';
     var applicationVersion = 'unknown_version';
-    var applicationBuildCode = 0;
+    var applicationBuildCode = '0';
     var applicationName = 'unknown_name';
 
     var _appMapData = await _getVersionJsonData();
@@ -74,7 +74,7 @@ class ClientInformationWeb {
     resultInfo['applicationType'] = applicationType;
     resultInfo['applicationName'] = applicationName;
     resultInfo['applicationVersion'] = applicationVersion;
-    resultInfo['applicationBuildCode'] = applicationBuildCode.toString();
+    resultInfo['applicationBuildCode'] = applicationBuildCode;
     return Future.value(resultInfo);
   }
 
