@@ -1,3 +1,7 @@
+## 2.0.2+1
+
+- chore: code formatter
+
 ## 2.0.2
 
 - fix: fix initialization on web ([#4](https://github.com/Kent1011/client_information/pull/4))
