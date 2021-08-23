@@ -138,7 +138,8 @@ class ClientInformationWeb {
 
     var el = cookieStr
         .split('; ')
-        .firstWhere((row) => row.startsWith(similar ? key : '$key='), orElse: () => '')
+        .firstWhere((row) => row.startsWith(similar ? key : '$key='),
+            orElse: () => '')
         .split('=');
     return el.length > 1 ? el.elementAt(1) : null;
   }
