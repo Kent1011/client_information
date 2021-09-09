@@ -1,3 +1,7 @@
+## 2.0.2+2
+
+- Update document
+
 ## 2.0.2+1
 
 - chore: code formatter
