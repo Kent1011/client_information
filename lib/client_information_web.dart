@@ -152,7 +152,9 @@ class ClientInformationWeb {
         iosPlatforms = ['iPhone', 'iPad', 'iPod'],
         osName,
         osVersion;
-    if (macosPlatforms.contains(platform)) {
+    if (RegExp(r'Linux').hasMatch(platform as String)) {
+      osName = 'Linux';
+    } else if (macosPlatforms.contains(platform)) {
       osName = 'Mac OS';
     } else if (iosPlatforms.contains(platform)) {
       osName = 'iOS';
