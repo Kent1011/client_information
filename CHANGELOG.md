@@ -1,3 +1,9 @@
+## 2.0.3
+
+- fix: Web Exception caused by [non_bool_negation_expression](https://dart.dev/tools/diagnostic-messages#non_bool_negation_expression)([#6](https://github.com/Kent1011/client_information/issues/6), [#7](https://github.com/Kent1011/client_information/issues/7)) (Thanks @MarcVanDaele90)
+
+- Upgrade [uuid](https://pub.dev/packages/uuid) 3.0.3 -> 3.0.6
+
 ## 2.0.2+2
 
 - Update document
