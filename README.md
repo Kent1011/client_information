@@ -1,6 +1,6 @@
 # Client Information
 
-This is a plugin that let you get the basic information from your application's client. It's easy to use and support different platforms(Android, iOS and Web). There 4 different information types: "application information", "software information", "operating system information" and "device information".
+This is a plugin that lets you get basic information from your application's client. It's easy to use and supports different platforms (Android, iOS, and Web). There are four different information types: "application information", "software information", "operating system information", and "device information".
 
 [![Pub](https://img.shields.io/pub/v/client_information.svg)](https://pub.dev/packages/client_information)
 [![License: MIT](https://img.shields.io/badge/license-MIT-purple.svg)](https://opensource.org/licenses/MIT)
@@ -25,7 +25,7 @@ There are 4 different types:
 
 ### Application Information
 
-Application information is all about the application you build. And notice that **applicationId** is not support for web application.
+Application information is all about the application you build. And notice that **applicationId** is not supported for web applications.
 
 <table>
   <tr>
@@ -68,7 +68,7 @@ Application information is all about the application you build. And notice that 
 
 ### Software Information
 
-"Software" is stand for the "software" run your application. e.g. "Operating System" for iOS/Android project, "Browser" for web project.
+"Software" stands for the "software" that runs your application, such as "Operating System" for iOS/Android projects or "Browser" for web projects.
 
 <table>
   <tr>
@@ -93,7 +93,7 @@ Application information is all about the application you build. And notice that 
 
 ### Operating System Information
 
-OS information will show you OS's name and version. Notice: web project may not get this information if the browser's user-agent doesn't contain any information of operating system.
+OS information will show you the OS's name and version. Notice: Web projects may not get this information if the browser's user-agent doesn't contain any information about the operating system.
 
 <table>
   <tr>
@@ -118,7 +118,7 @@ OS information will show you OS's name and version. Notice: web project may not 
 
 ### Device Information
 
-Device information will show you device ID and device name. Notice: web project doesn't support real **deviceId**, therefore it will use the package [uuid](https://pub.dev/packages/uuid) to generate a unique string and save to the browser's cookie.
+The device information will display device's ID and name. Note that web projects don't support real **deviceId**, so they will use the package [uuid](https://pub.dev/packages/uuid) to generate a unique string and save to the browser's cookie.
 
 <table>
   <tr>
@@ -169,7 +169,7 @@ print(info.osName); // iOS
 
 ## Mock Data for Test
 
-After version 1.0.2, you can mock data or change to "mockMode" for testing needs. You can set up like this:
+Starting from version 1.0.2, you can mock data or enable "mockMode" to facilitate testing. Here is how to set it up:
 
 <br>
 
