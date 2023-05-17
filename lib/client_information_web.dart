@@ -160,9 +160,9 @@ class ClientInformationWeb {
       osName = 'Windows';
     } else if (RegExp(r'Android').hasMatch(userAgent)) {
       osName = 'Android';
-    } else if (osName == null && RegExp(r'Linux').hasMatch(userAgent)) {
+    } else if (RegExp(r'Linux').hasMatch(userAgent)) {
       osName = 'Linux';
-    } else if (osName == null && RegExp(r'CrOS').hasMatch(userAgent)) {
+    } else if (RegExp(r'CrOS').hasMatch(userAgent)) {
       osName = 'Chrome OS';
     } else if (RegExp(r'Remix', caseSensitive: false).hasMatch(userAgent)) {
       osName = 'Remix OS';
