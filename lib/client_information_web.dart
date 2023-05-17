@@ -211,7 +211,7 @@ class ClientInformationWeb {
     browser = RegExp(r'ucbrowser', caseSensitive: false).hasMatch(userAgent)
         ? 'UCBrowser'
         : browser;
-    browser = RegExp(r'edge', caseSensitive: false).hasMatch(userAgent)
+    browser = RegExp(r'edge|edg', caseSensitive: false).hasMatch(userAgent)
         ? 'Edge'
         : browser;
     browser = RegExp(r'googlebot', caseSensitive: false).hasMatch(userAgent)
