@@ -1,3 +1,9 @@
+## 2.0.4
+
+- fix: Edge Chromium check missing([#12](https://github.com/Kent1011/client_information/issues/12), Thanks @DaggeDaggmask)
+- chore: Fix code lint issues.
+- refactor: Update example project to support null-safety.
+
 ## 2.0.3+1
 
 - doc: Update README.md
