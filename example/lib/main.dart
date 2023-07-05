@@ -14,7 +14,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  ClientInformation _clientInfo;
+  ClientInformation? _clientInfo;
 
   @override
   void initState() {
@@ -23,7 +23,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> _getClientInformation() async {
-    ClientInformation info;
+    ClientInformation? info;
     try {
       info = await ClientInformation.fetch();
     } on PlatformException {
@@ -59,33 +59,33 @@ class _MyAppState extends State<MyApp> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _generateRowData(
-            'deviceId', _clientInfo.deviceId ?? 'unknown_device_id'),
+            'deviceId', _clientInfo?.deviceId ?? 'unknown_device_id'),
         _generateRowData(
-            'deviceName', _clientInfo.deviceName ?? 'unknown_device_name'),
-        _generateRowData('osName', _clientInfo.osName ?? 'unknown_os_name'),
+            'deviceName', _clientInfo?.deviceName ?? 'unknown_device_name'),
+        _generateRowData('osName', _clientInfo?.osName ?? 'unknown_os_name'),
         _generateRowData(
-            'osVersion', _clientInfo.osVersion ?? 'unknown_os_version'),
+            'osVersion', _clientInfo?.osVersion ?? 'unknown_os_version'),
         _generateRowData('softwareName',
-            _clientInfo.softwareName ?? 'unknown_software_name'),
+            _clientInfo?.softwareName ?? 'unknown_software_name'),
         _generateRowData('softwareVersion',
-            _clientInfo.softwareVersion ?? 'unknown_software_version'),
+            _clientInfo?.softwareVersion ?? 'unknown_software_version'),
         _generateRowData('applicationId',
-            _clientInfo.applicationId ?? 'unknown_application_id'),
+            _clientInfo?.applicationId ?? 'unknown_application_id'),
         _generateRowData('applicationType',
-            _clientInfo.applicationType ?? 'unknown_application_type'),
+            _clientInfo?.applicationType ?? 'unknown_application_type'),
         _generateRowData('applicationName',
-            _clientInfo.applicationName ?? 'unknown_application_name'),
+            _clientInfo?.applicationName ?? 'unknown_application_name'),
         _generateRowData('applicationVersion',
-            _clientInfo.applicationVersion ?? 'unknown_application_version'),
+            _clientInfo?.applicationVersion ?? 'unknown_application_version'),
         _generateRowData(
             'applicationBuildCode',
-            _clientInfo.applicationBuildCode ??
+            _clientInfo?.applicationBuildCode ??
                 'unknown_application_build_number'),
       ],
     );
   }
 
-  Widget _generateRowData(String key, String value) {
+  Widget _generateRowData(String key, String? value) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Wrap(

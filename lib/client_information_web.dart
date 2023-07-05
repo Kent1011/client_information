@@ -160,9 +160,9 @@ class ClientInformationWeb {
       osName = 'Windows';
     } else if (RegExp(r'Android').hasMatch(userAgent)) {
       osName = 'Android';
-    } else if (osName == null && RegExp(r'Linux').hasMatch(userAgent)) {
+    } else if (RegExp(r'Linux').hasMatch(userAgent)) {
       osName = 'Linux';
-    } else if (osName == null && RegExp(r'CrOS').hasMatch(userAgent)) {
+    } else if (RegExp(r'CrOS').hasMatch(userAgent)) {
       osName = 'Chrome OS';
     } else if (RegExp(r'Remix', caseSensitive: false).hasMatch(userAgent)) {
       osName = 'Remix OS';
@@ -211,7 +211,7 @@ class ClientInformationWeb {
     browser = RegExp(r'ucbrowser', caseSensitive: false).hasMatch(userAgent)
         ? 'UCBrowser'
         : browser;
-    browser = RegExp(r'edge', caseSensitive: false).hasMatch(userAgent)
+    browser = RegExp(r'edge|edg', caseSensitive: false).hasMatch(userAgent)
         ? 'Edge'
         : browser;
     browser = RegExp(r'googlebot', caseSensitive: false).hasMatch(userAgent)
