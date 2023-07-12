@@ -1,4 +1,4 @@
-import 'package:client_information/client_information.dart';
+part of 'client_information.dart';
 
 /// A decorator for [ClientInformation]
 ///
