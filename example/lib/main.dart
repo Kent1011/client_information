@@ -1,91 +1,120 @@
-import 'package:flutter/material.dart';
-import 'dart:async';
-
-import 'package:flutter/services.dart';
 import 'package:client_information/client_information.dart';
+import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  ClientInformation? _clientInfo;
-
-  @override
-  void initState() {
-    super.initState();
-    _getClientInformation();
-  }
-
-  Future<void> _getClientInformation() async {
-    ClientInformation? info;
-    try {
-      info = await ClientInformation.fetch();
-    } on PlatformException {
-      print('Failed to get client information');
-    }
-    if (!mounted) return;
-
-    setState(() {
-      _clientInfo = info;
-    });
-  }
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Client Information'),
-        ),
-        body: LayoutBuilder(builder: (context, _) {
-          return _clientInfo == null ? _buildLoading() : _buildBody();
-        }),
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
+        useMaterial3: true,
       ),
+      home: const MyHomePage(),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  ClientInformation? basicInfo, decoratedInfo;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchInfo();
+  }
+
+  void _fetchInfo() async {
+    basicInfo = await ClientInformation.fetch();
+
+    decoratedInfo = await ClientInformation.fetch(
+      decorators: ClientInformationDecorators(
+        deviceId: (oriInfo, value) =>
+            'prefix-$value-${oriInfo.applicationName}',
+      ),
+    );
+
+    ///! or, you can use the extension method like this:
+    // decoratedInfo = (await ClientInformation.fetch()).decoration(
+    //     deviceId: (oriInfo, value) =>
+    //         'prefix-$value-${oriInfo.applicationName}');
+    setState(() {});
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        centerTitle: true,
+        title: const Text('Client Information Example'),
+      ),
+      body: LayoutBuilder(builder: (context, _) {
+        return Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                child: basicInfo == null || decoratedInfo == null
+                    ? _buildLoading()
+                    : _buildInfoView(),
+              ),
+            ),
+          ],
+        );
+      }),
     );
   }
 
   Widget _buildLoading() {
-    return Center(child: CircularProgressIndicator());
+    return const Center(child: CircularProgressIndicator());
   }
 
-  Widget _buildBody() {
+  Widget _buildInfoView() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _generateRowData(
-            'deviceId', _clientInfo?.deviceId ?? 'unknown_device_id'),
-        _generateRowData(
-            'deviceName', _clientInfo?.deviceName ?? 'unknown_device_name'),
-        _generateRowData('osName', _clientInfo?.osName ?? 'unknown_os_name'),
-        _generateRowData(
-            'osVersion', _clientInfo?.osVersion ?? 'unknown_os_version'),
-        _generateRowData('softwareName',
-            _clientInfo?.softwareName ?? 'unknown_software_name'),
-        _generateRowData('softwareVersion',
-            _clientInfo?.softwareVersion ?? 'unknown_software_version'),
-        _generateRowData('applicationId',
-            _clientInfo?.applicationId ?? 'unknown_application_id'),
-        _generateRowData('applicationType',
-            _clientInfo?.applicationType ?? 'unknown_application_type'),
-        _generateRowData('applicationName',
-            _clientInfo?.applicationName ?? 'unknown_application_name'),
-        _generateRowData('applicationVersion',
-            _clientInfo?.applicationVersion ?? 'unknown_application_version'),
-        _generateRowData(
+        _dataItemWidget('deviceId', basicInfo?.deviceId ?? 'unknown_device_id'),
+        _dataItemWidget('decorated deviceId',
+            decoratedInfo?.deviceId ?? 'unknown_decorated_device_id'),
+        _dataItemWidget(
+            'deviceName', basicInfo?.deviceName ?? 'unknown_device_name'),
+        _dataItemWidget('osName', basicInfo?.osName ?? 'unknown_os_name'),
+        _dataItemWidget(
+            'osVersion', basicInfo?.osVersion ?? 'unknown_os_version'),
+        _dataItemWidget(
+            'softwareName', basicInfo?.softwareName ?? 'unknown_software_name'),
+        _dataItemWidget('softwareVersion',
+            basicInfo?.softwareVersion ?? 'unknown_software_version'),
+        _dataItemWidget('applicationId',
+            basicInfo?.applicationId ?? 'unknown_application_id'),
+        _dataItemWidget('applicationType',
+            basicInfo?.applicationType ?? 'unknown_application_type'),
+        _dataItemWidget('applicationName',
+            basicInfo?.applicationName ?? 'unknown_application_name'),
+        _dataItemWidget('applicationVersion',
+            basicInfo?.applicationVersion ?? 'unknown_application_version'),
+        _dataItemWidget(
             'applicationBuildCode',
-            _clientInfo?.applicationBuildCode ??
+            basicInfo?.applicationBuildCode ??
                 'unknown_application_build_number'),
       ],
     );
   }
 
-  Widget _generateRowData(String key, String? value) {
+  Widget _dataItemWidget(String key, String? value) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Wrap(
@@ -94,7 +123,7 @@ class _MyAppState extends State<MyApp> {
               style:
                   const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
           Text(value ?? 'null',
-              style: const TextStyle(fontSize: 20, color: Colors.blueAccent)),
+              style: const TextStyle(fontSize: 18, color: Colors.blueAccent)),
         ],
       ),
     );
