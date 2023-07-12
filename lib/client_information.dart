@@ -4,6 +4,8 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
+part 'client_information_decorator.dart';
+
 class ClientInformation {
   static const MethodChannel _channel = MethodChannel('client_information');
 
@@ -15,7 +17,9 @@ class ClientInformation {
 
   /// Get basic client information
   ///
-  /// Optional parameters can overwrite the information if provided
+  /// Optional parameters can overwrite the information if provided.
+  ///
+  /// [decorators] is a set of decorators to decorate the information.(optional)
   static Future<ClientInformation> fetch({
     String? deviceId,
     String? osName,
@@ -27,6 +31,7 @@ class ClientInformation {
     String? applicationName,
     String? applicationVersion,
     String? applicationBuildCode,
+    ClientInformationDecorators? decorators,
   }) async {
     ClientInformation information;
 
@@ -71,7 +76,9 @@ class ClientInformation {
       information.applicationBuildCode = applicationBuildCode!;
     }
 
-    return information;
+    return decorators != null
+        ? _clientInfoDecorationHandler(information, decorators)
+        : information;
   }
 
   /// Change to test mode.
