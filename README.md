@@ -36,33 +36,33 @@ Application information is all about the application you build. And notice that 
   </tr>
   <tr>
     <td><b>applicationId</b><br>String</td>
-    <td>O<br>bundleIdentifier</td>
-    <td>O<br>package name</td>
-    <td>x<br>default: application name</td>
+    <td>⭕<br>bundleIdentifier</td>
+    <td>⭕<br>package name</td>
+    <td>❌<br>default: application name</td>
   </tr>
   <tr>
     <td><b>applicationType</b><br>String (app/web)</td>
-    <td>O</td>
-    <td>O</td>
-    <td>O</td>
+    <td>⭕</td>
+    <td>⭕</td>
+    <td>⭕</td>
   </tr>
   <tr>
     <td><b>applicationName</b><br>String</td>
-    <td>O</td>
-    <td>O</td>
-    <td>O</td>
+    <td>⭕</td>
+    <td>⭕</td>
+    <td>⭕</td>
   </tr>
   <tr>
     <td><b>applicationVersion</b><br>String</td>
-    <td>O</td>
-    <td>O</td>
-    <td>O</td>
+    <td>⭕</td>
+    <td>⭕</td>
+    <td>⭕</td>
   </tr>
   <tr>
     <td><b>applicationBuildCode</b><br>String</td>
-    <td>O</td>
-    <td>O</td>
-    <td>O</td>
+    <td>⭕</td>
+    <td>⭕</td>
+    <td>⭕</td>
   </tr>
 </table><br>
 
@@ -79,15 +79,15 @@ Application information is all about the application you build. And notice that 
   </tr>
   <tr>
     <td><b>softwareName</b><br>String</td>
-    <td>O<br>OS name</td>
-    <td>O<br>OS name</td>
-    <td>O<br>Browser name</td>
+    <td>⭕<br>OS name</td>
+    <td>⭕<br>OS name</td>
+    <td>⭕<br>Browser name</td>
   </tr>
   <tr>
     <td><b>softwareVersion</b><br>String</td>
-    <td>O<br>OS version</td>
-    <td>O<br>OS version</td>
-    <td>O<br>Browser version</td>
+    <td>⭕<br>OS version</td>
+    <td>⭕<br>OS version</td>
+    <td>⭕<br>Browser version</td>
   </tr>
 </table><br>
 
@@ -104,15 +104,15 @@ OS information will show you the OS's name and version. Notice: Web projects may
   </tr>
   <tr>
     <td><b>osName</b><br>String</td>
-    <td>O<br>OS name</td>
-    <td>O<br>OS name</td>
-    <td>*O<br>OS name<br>(*unknown possible)</td>
+    <td>⭕<br>OS name</td>
+    <td>⭕<br>OS name</td>
+    <td>⚠️<br>OS name<br>(*unknown possible)</td>
   </tr>
   <tr>
     <td><b>osVersion</b><br>String</td>
-    <td>O<br>OS version</td>
-    <td>O<br>OS version</td>
-    <td>*O<br>OS Version<br>(*unknown possible)</td>
+    <td>⭕<br>OS version</td>
+    <td>⭕<br>OS version</td>
+    <td>⚠️<br>OS Version<br>(*unknown possible)</td>
   </tr>
 </table><br>
 
@@ -129,15 +129,15 @@ The device information will display device's ID and name. Note that web projects
   </tr>
   <tr>
     <td><b>deviceId</b><br>String</td>
-    <td>O</td>
-    <td>O</td>
-    <td>O</td>
+    <td>⭕</td>
+    <td>⭕</td>
+    <td>⭕</td>
   </tr>
   <tr>
     <td><b>deviceName</b><br>String</td>
-    <td>O</td>
-    <td>O</td>
-    <td>x<br>default: osName osVersion / browserName browserVersion<br>(e.g. iOS 14 / Chrome 88.0)</td>
+    <td>⭕</td>
+    <td>⭕</td>
+    <td>❌<br>default: osName osVersion / browserName browserVersion<br>(e.g. iOS 14 / Chrome 88.0)</td>
   </tr>
 </table><br>
 
@@ -148,7 +148,7 @@ In the pubspec.yaml of your flutter project, add the following dependency:
 ```yaml
 dependencies:
   ...
-  client_information: ^2.0.4
+  client_information: ^2.1.0
 ```
 
 In your project add the following import:
@@ -165,6 +165,32 @@ ClientInformation info = await ClientInformation.fetch();
 
 print(info.deviceId); // EA625164-4XXX-XXXX-XXXXXXXXXXXX
 print(info.osName); // iOS
+```
+
+## Decoration
+
+Starting from version 2.1.0, you can customize some information by passing the `decorators`. Like below:
+
+```dart
+var information = await ClientInformation.fetch(
+      // you can pass decorators to decoration the value before it return.
+      decorators: ClientInformationDecorators(
+        deviceId: (oriInfo, value) =>
+            'prefix-$value-${oriInfo.applicationName}',
+      ),
+    );
+```
+
+Or, you can use extension method like this:
+
+```dart
+var information = await ClientInformation.fetch();
+print('Original DeviceId: ${information.deviceId}');
+// Original DeviceId: EA625164-4XXX-XXXX-XXXXXXXXXXXX
+
+var decoratedInfo = information.decoration(deviceId: (oriInfo, value) => '$value-some-suffix-string-here');
+print('Decorated DeviceId: ${decoratedInfo.deviceId}');
+// Decorated DeviceId: EA625164-4XXX-XXXX-XXXXXXXXXXXX-some-suffix-string-here
 ```
 
 ## Mock Data for Test

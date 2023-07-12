@@ -1,3 +1,24 @@
+## 2.1.0
+
+- feature: Adding decorator method to decorate the information.
+
+  ```dart
+  var information = await ClientInformation.fetch(
+      // you can pass decorators to decoration the value before it return.
+      decorators: ClientInformationDecorators(
+        deviceId: (oriInfo, value) =>
+            'prefix-$value-${oriInfo.applicationName}',
+      ),
+    );
+
+  // or you can use extension methods like this:
+  var information = await ClientInformation.fetch();
+  var decoratedInfo = information.decoration(deviceId: (oriInfo, value) => '$value-some-suffix-string-here');
+  ```
+
+- fix: update Android gradle setting. ([#10](https://github.com/Kent1011/client_information/issues/10), Thanks @pnghai)
+- doc: Update the example project & README.md
+
 ## 2.0.4
 
 - fix: Edge Chromium check missing([#12](https://github.com/Kent1011/client_information/issues/12), Thanks @DaggeDaggmask)
