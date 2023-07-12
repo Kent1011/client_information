@@ -4,6 +4,8 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
+export 'client_information_decorator.dart';
+
 class ClientInformation {
   static const MethodChannel _channel = MethodChannel('client_information');
 
