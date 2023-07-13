@@ -94,6 +94,8 @@ class _MyHomePageState extends State<MyHomePage> {
         _dataItemWidget('osName', basicInfo?.osName ?? 'unknown_os_name'),
         _dataItemWidget(
             'osVersion', basicInfo?.osVersion ?? 'unknown_os_version'),
+        _dataItemWidget('osVersionCode',
+            basicInfo?.osVersionCode.toString() ?? 'unknown_os_version_code'),
         _dataItemWidget(
             'softwareName', basicInfo?.softwareName ?? 'unknown_software_name'),
         _dataItemWidget('softwareVersion',
@@ -116,7 +118,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget _dataItemWidget(String key, String? value) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
       child: Wrap(
         children: [
           Text('$key: ',

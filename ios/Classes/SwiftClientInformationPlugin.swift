@@ -20,6 +20,7 @@ public class SwiftClientInformationPlugin: NSObject, FlutterPlugin {
       let applicationName = Bundle.main.infoDictionary?["CFBundleName"] as? String ?? "unknown_name"
       let osName = "iOS"
       let osVersion = "iOS " + UIDevice.current.systemVersion
+      let osVersionCode = UIDevice.current.systemVersion
       let deviceId = self.getDeviceId(applicationName: applicationName)
       let deviceName = UIDevice.current.model
 
@@ -27,6 +28,7 @@ public class SwiftClientInformationPlugin: NSObject, FlutterPlugin {
       info["deviceName"] = deviceName
       info["osName"] = osName
       info["osVersion"] = osVersion
+      info["osVersionCode"] = osVersionCode
       info["softwareName"] = applicationName
       info["softwareVersion"] = applicationVersion
       info["applicationId"] = applicationId

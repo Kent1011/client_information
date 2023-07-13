@@ -24,6 +24,7 @@ class ClientInformation {
     String? deviceId,
     String? osName,
     String? osVersion,
+    num? osVersionCode,
     String? softwareName,
     String? softwareVersion,
     String? applicationId,
@@ -53,6 +54,9 @@ class ClientInformation {
     }
     if (osVersion?.isNotEmpty ?? false) {
       information.osVersion = osVersion!;
+    }
+    if (osVersionCode != null) {
+      information.osVersionCode = osVersionCode;
     }
     if (softwareName?.isNotEmpty ?? false) {
       information.softwareName = softwareName!;
@@ -87,6 +91,7 @@ class ClientInformation {
     String? deviceId,
     String? osName,
     String? osVersion,
+    num? osVersionCode,
     String? softwareName,
     String? softwareVersion,
     String? applicationId,
@@ -106,6 +111,9 @@ class ClientInformation {
     }
     if (osVersion?.isNotEmpty ?? false) {
       _mockData.osVersion = osVersion!;
+    }
+    if (osVersionCode != null) {
+      _mockData.osVersionCode = osVersionCode;
     }
     if (softwareName?.isNotEmpty ?? false) {
       _mockData.softwareName = softwareName!;
@@ -148,6 +156,13 @@ class ClientInformation {
   /// Operate system version
   String osVersion;
 
+  /// Operate system version code
+  ///
+  /// * Android: Android API level
+  /// * iOS: OS version (e.g. 16.4)
+  /// * Web: OS version (If os version can't be parsed to a number, it will return `-1`)
+  num osVersionCode;
+
   /// Software name. And software means if application type [applicationType]
   /// is `app`, this value will be equal to the application
   /// name [applicationName]. If application type [applicationType] is `web`,
@@ -183,6 +198,7 @@ class ClientInformation {
     String? deviceName,
     String? osName,
     String? osVersion,
+    num? osVersionCode,
     String? softwareName,
     String? softwareVersion,
     String? applicationId,
@@ -194,6 +210,7 @@ class ClientInformation {
         deviceName = deviceName ?? 'unknown_device_name',
         osName = osName ?? 'unknown_os_name',
         osVersion = osVersion ?? 'unknown_os_version',
+        osVersionCode = osVersionCode ?? -1,
         softwareName = softwareName ?? 'unknown_software_name',
         softwareVersion = softwareVersion ?? 'unknown_software_version',
         applicationId = applicationId ?? 'unknown_application_id',
@@ -210,6 +227,7 @@ class ClientInformation {
       'deviceName': deviceName,
       'osName': osName,
       'osVersion': osVersion,
+      'osVersionCode': osVersionCode,
       'softwareName': softwareName,
       'softwareVersion': softwareVersion,
       'applicationId': applicationId,
@@ -228,6 +246,8 @@ class ClientInformation {
       deviceName: map['deviceName'],
       osName: map['osName'],
       osVersion: map['osVersion'],
+      osVersionCode:
+          map['osVersionCode'] == null ? -1 : num.parse(map['osVersionCode']),
       softwareName: map['softwareName'],
       softwareVersion: map['softwareVersion'],
       applicationId: map['applicationId'],

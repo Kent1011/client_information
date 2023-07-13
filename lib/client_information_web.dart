@@ -59,6 +59,7 @@ class ClientInformationWeb {
     var os = _getOS();
     var osName = os.name;
     var osVersion = os.version;
+    var osVersionCode = _getOsVersionCode(osVersion);
     var browser = _getBrowser();
     var deviceId = _getDeviceId();
     var deviceName =
@@ -68,6 +69,7 @@ class ClientInformationWeb {
     resultInfo['deviceName'] = deviceName;
     resultInfo['osName'] = osName;
     resultInfo['osVersion'] = osVersion;
+    resultInfo['osVersionCode'] = osVersionCode.toString();
     resultInfo['softwareName'] = browser.name;
     resultInfo['softwareVersion'] = browser.version;
     resultInfo['applicationId'] = applicationName;
@@ -201,6 +203,22 @@ class ClientInformationWeb {
     }
 
     return _Software(osName ?? 'unknown_os', osVersion ?? 'unknown_os_version');
+  }
+
+  num _getOsVersionCode(String osVersion) {
+    if (num.tryParse(osVersion) != null) {
+      return num.parse(osVersion);
+    }
+
+    var versionList = osVersion.split('.');
+
+    if (versionList.length <= 1) {
+      return -1;
+    } else if (versionList.length == 2) {
+      return num.tryParse(versionList[0]) ?? -1;
+    } else {
+      return num.tryParse('${versionList[0]}.${versionList[1]}') ?? -1;
+    }
   }
 
   _Software _getBrowser() {
