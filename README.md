@@ -154,7 +154,7 @@ In the pubspec.yaml of your flutter project, add the following dependency:
 ```yaml
 dependencies:
   ...
-  client_information: ^2.1.1
+  client_information: ^2.1.2
 ```
 
 In your project add the following import:

@@ -1,6 +1,6 @@
 name: client_information
 description: This is a plugin that lets you get the basic information from your application's client. It's easy to use and supports different platforms (Android, iOS, and Web).
-version: 2.1.1
+version: 2.1.2
 homepage: https://github.com/Kent1011/client_information
 
 environment:

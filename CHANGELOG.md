@@ -1,3 +1,7 @@
+## 2.1.2
+
+- doc: Update README.md
+
 ## 2.1.1
 
 - feat: support `osVersionCode`([#11](https://github.com/Kent1011/client_information/issues/11))
