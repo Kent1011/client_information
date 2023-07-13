@@ -114,6 +114,12 @@ OS information will show you the OS's name and version. Notice: Web projects may
     <td>⭕<br>OS version</td>
     <td>⚠️<br>OS Version<br>(*unknown possible)</td>
   </tr>
+  <tr>
+    <td><b>osVersion</b><br>String</td>
+    <td>⭕<br>iOS version(number)</td>
+    <td>⭕<br>Android API level</td>
+    <td>⚠️<br>OS Version(number)<br>(*unknown: -1)</td>
+  </tr>
 </table><br>
 
 ### Device Information
@@ -148,7 +154,7 @@ In the pubspec.yaml of your flutter project, add the following dependency:
 ```yaml
 dependencies:
   ...
-  client_information: ^2.1.0
+  client_information: ^2.1.1
 ```
 
 In your project add the following import:
