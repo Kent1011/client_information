@@ -241,13 +241,29 @@ class ClientInformation {
   factory ClientInformation._fromMap(Map<String, dynamic>? map) {
     if (map == null) return ClientInformation();
 
+    num _parseOsVersionCode(String? osVersion) {
+      if (osVersion == null) return -1;
+      if (num.tryParse(osVersion) != null) {
+        return num.parse(osVersion);
+      }
+
+      var versionList = osVersion.split('.');
+
+      if (versionList.length <= 1) {
+        return -1;
+      } else if (versionList.length == 2) {
+        return num.tryParse(versionList[0]) ?? -1;
+      } else {
+        return num.tryParse('${versionList[0]}.${versionList[1]}') ?? -1;
+      }
+    }
+
     return ClientInformation(
       deviceId: map['deviceId'],
       deviceName: map['deviceName'],
       osName: map['osName'],
       osVersion: map['osVersion'],
-      osVersionCode:
-          map['osVersionCode'] == null ? -1 : num.parse(map['osVersionCode']),
+      osVersionCode: _parseOsVersionCode(map['osVersionCode']),
       softwareName: map['softwareName'],
       softwareVersion: map['softwareVersion'],
       applicationId: map['applicationId'],
