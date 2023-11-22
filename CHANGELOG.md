@@ -1,3 +1,7 @@
+## 2.1.4
+
+- chore: upgrade package `uuid`'s version
+
 ## 2.1.3
 
 - fix: Problem with `osVersionCode`` number([#13](https://github.com/Kent1011/client_information/issues/13))
