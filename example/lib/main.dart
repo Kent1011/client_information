@@ -42,8 +42,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
     decoratedInfo = await ClientInformation.fetch(
       decorators: ClientInformationDecorators(
-        deviceId: (oriInfo, value) =>
-            'prefix-$value-${oriInfo.applicationName}',
+        deviceId:
+            (oriInfo, value) => 'prefix-$value-${oriInfo.applicationName}',
       ),
     );
 
@@ -62,19 +62,22 @@ class _MyHomePageState extends State<MyHomePage> {
         centerTitle: true,
         title: const Text('Client Information Example'),
       ),
-      body: LayoutBuilder(builder: (context, _) {
-        return Column(
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                child: basicInfo == null || decoratedInfo == null
-                    ? _buildLoading()
-                    : _buildInfoView(),
+      body: LayoutBuilder(
+        builder: (context, _) {
+          return Column(
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  child:
+                      basicInfo == null || decoratedInfo == null
+                          ? _buildLoading()
+                          : _buildInfoView(),
+                ),
               ),
-            ),
-          ],
-        );
-      }),
+            ],
+          );
+        },
+      ),
     );
   }
 
@@ -87,31 +90,51 @@ class _MyHomePageState extends State<MyHomePage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _dataItemWidget('deviceId', basicInfo?.deviceId ?? 'unknown_device_id'),
-        _dataItemWidget('decorated deviceId',
-            decoratedInfo?.deviceId ?? 'unknown_decorated_device_id'),
         _dataItemWidget(
-            'deviceName', basicInfo?.deviceName ?? 'unknown_device_name'),
+          'decorated deviceId',
+          decoratedInfo?.deviceId ?? 'unknown_decorated_device_id',
+        ),
+        _dataItemWidget(
+          'deviceName',
+          basicInfo?.deviceName ?? 'unknown_device_name',
+        ),
         _dataItemWidget('osName', basicInfo?.osName ?? 'unknown_os_name'),
         _dataItemWidget(
-            'osVersion', basicInfo?.osVersion ?? 'unknown_os_version'),
-        _dataItemWidget('osVersionCode',
-            basicInfo?.osVersionCode.toString() ?? 'unknown_os_version_code'),
+          'osVersion',
+          basicInfo?.osVersion ?? 'unknown_os_version',
+        ),
         _dataItemWidget(
-            'softwareName', basicInfo?.softwareName ?? 'unknown_software_name'),
-        _dataItemWidget('softwareVersion',
-            basicInfo?.softwareVersion ?? 'unknown_software_version'),
-        _dataItemWidget('applicationId',
-            basicInfo?.applicationId ?? 'unknown_application_id'),
-        _dataItemWidget('applicationType',
-            basicInfo?.applicationType ?? 'unknown_application_type'),
-        _dataItemWidget('applicationName',
-            basicInfo?.applicationName ?? 'unknown_application_name'),
-        _dataItemWidget('applicationVersion',
-            basicInfo?.applicationVersion ?? 'unknown_application_version'),
+          'osVersionCode',
+          basicInfo?.osVersionCode.toString() ?? 'unknown_os_version_code',
+        ),
         _dataItemWidget(
-            'applicationBuildCode',
-            basicInfo?.applicationBuildCode ??
-                'unknown_application_build_number'),
+          'softwareName',
+          basicInfo?.softwareName ?? 'unknown_software_name',
+        ),
+        _dataItemWidget(
+          'softwareVersion',
+          basicInfo?.softwareVersion ?? 'unknown_software_version',
+        ),
+        _dataItemWidget(
+          'applicationId',
+          basicInfo?.applicationId ?? 'unknown_application_id',
+        ),
+        _dataItemWidget(
+          'applicationType',
+          basicInfo?.applicationType ?? 'unknown_application_type',
+        ),
+        _dataItemWidget(
+          'applicationName',
+          basicInfo?.applicationName ?? 'unknown_application_name',
+        ),
+        _dataItemWidget(
+          'applicationVersion',
+          basicInfo?.applicationVersion ?? 'unknown_application_version',
+        ),
+        _dataItemWidget(
+          'applicationBuildCode',
+          basicInfo?.applicationBuildCode ?? 'unknown_application_build_number',
+        ),
       ],
     );
   }
@@ -121,11 +144,14 @@ class _MyHomePageState extends State<MyHomePage> {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
       child: Wrap(
         children: [
-          Text('$key: ',
-              style:
-                  const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-          Text(value ?? 'null',
-              style: const TextStyle(fontSize: 18, color: Colors.blueAccent)),
+          Text(
+            '$key: ',
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          ),
+          Text(
+            value ?? 'null',
+            style: const TextStyle(fontSize: 18, color: Colors.blueAccent),
+          ),
         ],
       ),
     );
